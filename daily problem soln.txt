@@ -150,3 +150,25 @@ class Solution{
         //Your code here
         return helper(root, 1, 1e5);
     }
+
+
+Q. Number of subarrays with max
+    long countSubarrays(int a[], int n, int L, int R)
+    {
+        // Complete the function
+        //Brute force 
+        int ans = 0;
+        for(int i=0;i<n;i++){
+            int ma = a[i];
+            for(int j=i;j<n;j++){
+                ma = max(ma,a[j]);
+                // cout<<ma<<" ";
+                if(ma>=L && ma<=R) ans++;
+            }
+        }
+        
+        // cout<<"\n";
+        
+        return ans;
+        
+    }
