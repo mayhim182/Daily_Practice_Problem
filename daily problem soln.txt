@@ -172,3 +172,41 @@ Q. Number of subarrays with max
         return ans;
         
     }
+
+Q. Transform to prime
+class Solution
+{
+    public:
+    
+    int isPrime(int N){
+        if(N<2) return 0;
+        
+        for(int i=2;i*i<=N;i++) if(N%i==0) return 0;
+        
+        return 1;
+    }
+    
+    
+    
+    
+    
+    
+    int minNumber(int arr[],int N)
+    {
+        int sum = 0;
+        int arrSum = 0;
+        for(int i=0;i<N;i++){
+            sum+=arr[i];
+        }
+        
+        arrSum = sum;
+        
+        if(isPrime(sum)) return 0;
+        
+        while(!isPrime(sum)){
+            sum++;
+        }
+        
+        return sum - arrSum;
+    }
+};
