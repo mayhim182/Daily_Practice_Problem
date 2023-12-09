@@ -210,3 +210,50 @@ class Solution
         return sum - arrSum;
     }
 };
+
+class Solution {
+  public:
+    
+    int sumReturner(int n){
+        int sum = 0;
+        while(n){
+            sum+=(n%10);
+            n/=10;
+        }
+        return sum;
+    }
+    
+    int factorFinder(int &n){
+        int l = 2;
+        while(l<=n){
+            if(n%l==0){
+                n/=l;
+                return l;
+            }
+            l++;
+        }
+        n=0;
+        return 0;
+    }
+    
+    int isPrime(int n){
+        for(int i=2;i*i<=n;i++) if(n%i==0) return 0;
+        return 1;
+    }
+  
+    int smithNum(int n) {
+        
+        if(isPrime(n)) return 0; //Since not a composite number
+        
+        int sumOfDigits = sumReturner(n);
+        int sumOfPrimeFactors = 0;
+        while(n){
+            int tempPrimeFactors = factorFinder(n);
+            sumOfPrimeFactors += sumReturner(tempPrimeFactors);
+        }
+        
+        
+        return sumOfDigits == sumOfPrimeFactors ? 1 : 0;
+        
+    }
+};
