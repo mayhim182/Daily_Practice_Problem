@@ -275,3 +275,24 @@ class Solution {
         
         return 0;
     }
+
+    long maximumSumSubarray(int K, vector<int> &Arr , int N){
+        // code here 
+        if(N<K) return 0;
+        
+        int l=0;
+        long sum = 0;
+        long ans = 0;
+        for(int i=0;i<K;i++){
+            sum+=Arr[i];
+        }
+        ans = sum;
+        for(int i=K;i<N && l<N;i++){
+            sum-=Arr[l];
+            sum+=Arr[i];
+            l++;
+            ans = max(ans,sum);
+        }
+        return ans;
+    }
+};
