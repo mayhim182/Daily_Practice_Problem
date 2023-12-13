@@ -335,3 +335,46 @@ public:
         return ans;
     }
 };
+
+Q. Consecutive One's not allowed
+
+class Solution{
+public:
+
+    const ll MOD = 1e9+7;
+	// #define ll long long
+	int chkConsOnes(int n){
+	    int temp = 0;
+	    int prevTemp = 0;
+	    while(n){
+	        prevTemp = temp;
+	        temp = n%2;
+	        n/=2;
+	        
+	        if(temp==1 && prevTemp == 1) return 1;
+	    }
+	    
+	    return 0;
+	}
+	
+	ll countStrings(int n) {
+	    // code here
+	    
+	    ll ans = 5;
+	    
+	    ll n1 = 2, n2 = 3;
+	    
+	    if(n==1) return n1;
+	    if(n==2) return n2;
+	    if(n==3) return (n1+n2);
+	    n-=3;
+	    
+	    while(n--){
+	        n1 = n2;
+	        n2 = ans;
+	        ans = (n1%MOD+n2%MOD)%MOD;
+	    }
+	    
+	    return ans%MOD;
+	}
+};
