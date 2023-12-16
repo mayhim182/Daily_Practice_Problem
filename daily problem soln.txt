@@ -378,3 +378,35 @@ public:
 	    return ans%MOD;
 	}
 };
+
+
+Q. String's count
+
+long long nc1(long long n){
+    return n;
+}
+
+long long nc2(long long n){
+    return ((n)*(n-1))/2;
+}
+
+
+long long nmultiple(long long n){
+    return ((n)*(n-1)*(n-2))/2;
+}
+
+
+long long int countStr(long long int n){
+    //complete the function here
+    if(n==1) return 3;
+    
+    if(n==2) return 8;
+    
+    long long ans = 0;
+    ans ++;
+    ans+=2*nc1(n);
+    ans+=3*nc2(n);
+    ans+=nmultiple(n);
+    
+    return ans;
+}
