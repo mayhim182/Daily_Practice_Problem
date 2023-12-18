@@ -410,3 +410,15 @@ long long int countStr(long long int n){
     
     return ans;
 }
+
+Q. Game of XOR
+  int gameOfXor(int N , int A[]) {
+        // code here
+        if(N%2==0) return 0;
+        int ans = 0;
+        for(int i=0;i<N;i+=2){
+            if(i<N) ans^=A[i];
+        }
+        
+        return ans;
+    }
