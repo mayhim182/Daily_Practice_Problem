@@ -422,3 +422,38 @@ Q. Game of XOR
         
         return ans;
     }
+
+Q. Maximum number of meetings 
+
+
+class Solution{
+public:
+
+static   bool myComparison(const pair<pair<int,int>,int> &a,const pair<pair<int,int>,int> &b)
+{
+       if(a.first.second==b.first.second) return a.first.first<b.first.first;
+       return a.first.second<b.first.second;
+}
+    
+    vector<int> maxMeetings(int N,vector<int> &S,vector<int> &F){
+        vector<pair<pair<int,int>,int> > meetings;
+        for(int i=0;i<N;i++){
+            meetings.push_back({{S[i],F[i]},i});
+        }
+        
+        sort(meetings.begin(),meetings.end(),myComparison);
+       vector<int> ans;
+       ans.push_back(meetings[0].second+1);
+       pair<int,int> temp = {meetings[0].first.first,meetings[0].first.second};
+       for(int i=1;i<N;i++){
+           if(meetings[i].first.first>temp.second){
+               ans.push_back(meetings[i].second+1);
+               temp = {meetings[i].first.first,meetings[i].first.second};
+           }
+       }
+       
+       sort(ans.begin(),ans.end());
+       
+       return ans;
+    }
+};
