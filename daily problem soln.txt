@@ -528,3 +528,31 @@ Q. Winner of an election
         
         return {temp, to_string(ans)};
     }
+
+Q. New Year resolution dp 140 testcases attempt1
+
+    int help1(int index,int coins[],int N,int sum,vector<vector<int> > &dp){
+        
+        if(index>=N){
+            if((sum%20 == 0 || sum%24==0 || sum == 2024) && sum!=0) return 1;
+            return 0;
+        }
+        
+        if(sum>2024) return 0;
+        
+        if((sum%20 == 0 || sum%24==0 || sum == 2024) && sum!=0) return dp[sum][coins[index]] = 1;
+        
+        
+        if(dp[sum][coins[index]]!=-1) return dp[sum][coins[index]];
+        
+        return dp[sum][coins[index]]
+             = help1(index+1,coins,N,sum+coins[index],dp) || help1(index+1,coins,N,sum,dp);
+    }
+    
+    int isPossible(int N , int coins[]) 
+    {
+        int sum = 0;
+        int index = 0;
+        vector<vector<int> > dp(2024,vector<int>(2024,-1));
+        return help1(index,coins,N,sum,dp);
+    }
