@@ -556,3 +556,12 @@ Q. New Year resolution dp 140 testcases attempt1
         vector<vector<int> > dp(2024,vector<int>(2024,-1));
         return help1(index,coins,N,sum,dp);
     }
+
+
+Q. Array Pair sum divisibility problem (1034 / 1115) cases
+
+Brute force
+
+            for(int j=0;j<n;j++){
+                if((nums[i]+nums[j])%k==0 && takenOrNot[j].)
+            }
