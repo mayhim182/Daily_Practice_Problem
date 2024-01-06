@@ -621,3 +621,32 @@ class Solution {
         return -1;
     }
 };
+
+
+Q. Techfest and the queue 
+
+  BRUTE FORCE
+
+    int helper(int n){
+        int sum = 0;
+        int l = 2;
+        int cnt = 0;
+        
+        while(n && n>=l){
+            if(n%l==0){
+                n/=l;
+                sum++;
+            }
+            else{
+                l++;
+            }
+        }
+        return sum;
+    }
+
+	int sumOfPowers(int a, int b){
+	    // Code here
+	    int ans = 0;
+	    for(int i=a;i<=b;i++) ans+=helper(i);
+	    return ans;
+	}
