@@ -687,3 +687,77 @@ O(Nsqrt(N))
 	    for(int i=a;i<=b;i++) ans+=helper(i);
 	    return ans;
 	}
+
+
+
+Q. Merge two sorted linkedlist in reverse order
+class Solution
+{
+    public:
+    
+    
+    struct Node * reverseList(Node* list){
+        
+        if(!list && !list->next) return list;
+        
+        Node* prev = NULL;
+        Node* curr = list;
+        Node* forw = list->next;
+        
+        while(forw){
+            curr->next = prev;
+            prev = curr;
+            curr = forw;
+            forw = forw -> next;
+        }
+        
+        curr->next = prev;
+        
+        return curr;
+        
+    }
+    
+    
+    struct Node * mergeResult(Node *node1,Node *node2)
+    {
+        // your code goes here
+        // int data = node1->data > node2->data ? node2->data:node1->data;
+        
+        
+        Node* ans = new Node();
+        Node* res = ans;
+        while(node1 && node2){
+            Node* temp=new Node();
+            if(node1->data < node2->data){
+                ans->data = node1->data;
+                ans->next = temp;
+                node1 = node1->next;
+                ans = ans->next;
+            }else{
+                ans->data = node2->data;
+                ans->next = temp;
+                node2 = node2->next;
+                ans = ans->next;
+            }
+        }
+        while(node1){
+                Node* temp=new Node();
+                ans->data = node1->data;
+                ans->next = temp;
+                node1 = node1->next;
+                ans = ans->next;
+        }
+        while(node2){
+                Node* temp = new Node();
+                ans->data = node2->data;
+                ans->next = temp;
+                node2 = node2->next;
+                ans = ans->next;
+        }
+        
+        Node* result = reverseList(res);
+        
+        
+        return result?result->next:result;
+    }  
+};
