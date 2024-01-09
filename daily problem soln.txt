@@ -780,3 +780,25 @@ Q. Search pattern KMP algorithm
             
             return {-1};
         }
+
+//I GUESS BAD TEST CASE DESING SHOULD INCLUDE aaaaa.. 10^5
+  aaaaa^10^4
+
+ public:
+        vector <int> search(string pat, string txt)
+        {
+            //code here
+            vector<int> ans;
+            int n = pat.length();
+            for(int i=0;i<txt.size();i++){
+                if(pat[0]==txt[i]){
+                    if(pat==txt.substr(i,n)){
+                        ans.push_back(i+1);
+                    }   
+                }
+            }
+            
+            if(ans.size()>0) return ans;
+            
+            return {-1};
+        }
