@@ -802,3 +802,31 @@ Q. Search pattern KMP algorithm
             
             return {-1};
         }
+
+Q. Longest subarray with sum 
+
+//BRUTE FORCE X can be made O(n*n) using dp but not recommended
+
+    void help(int arr[],int index,int n,int k,int &ans,int currAns, int sum,int included){
+        
+        if(included && index<=n) currAns++;
+        
+        if(sum%k==0 && index<=n){
+            // cout<<currAns<<' '<<sum<<" "<<index<<"Entered\n";
+            ans = max(ans,currAns);
+        }
+        
+        if(index>=n) return ;
+        
+        help(arr,index+1,n,k,ans,currAns,sum+arr[index],1);//included
+        help(arr,index+1,n,k,ans,currAns,sum,0);//excluded
+        
+    }
+
+	int longSubarrWthSumDivByK(int arr[], int n, int k)
+	{
+	        int ans = 0;
+	        help(arr,1,n,k,ans,0,arr[0],1);
+	        help(arr,1,n,k,ans,0,0,0);
+	        return ans;
+	}
