@@ -861,3 +861,87 @@ class Solution
         return ans;
     }
 };
+
+Q. Insertion sort on a linked list
+
+class Solution
+{
+    public:
+    
+    void printHead(Node* head){
+        while(head){
+            cout<<head->data<<" ";
+            head = head-> next;
+        }
+        cout<<"\n";
+    }
+    
+    Node* insertAtPlace(Node* head, int data){
+        Node* tobeInserted = new Node(data);
+        Node* res = head;
+        
+        if(!head){
+            head = tobeInserted;
+            return head;
+        }
+        
+        
+        if(!head->next){
+            if(head->data<tobeInserted->data){
+                head->next = tobeInserted;
+                return head;
+            }
+            else{
+                tobeInserted->next = head;
+                head = tobeInserted;
+                return head;
+            }
+        }
+        
+        
+        
+        while(head && head->next && head->next->data < data){
+            // cout<<head->data<<" ";
+            head = head->next;
+        }
+        
+        if(head->next && head->next->data>=data){
+            tobeInserted->next = head->next;
+            head->next = tobeInserted;
+        }
+        else if(head->next && head->next->data<data){
+            head = head->next;
+            head->next = tobeInserted;
+        }
+        else if(!head->next){
+            head->next = tobeInserted;
+        }
+        
+        return res;
+        
+        
+    }
+    
+    Node* insertionSort(struct Node* head_ref)
+    {
+        if(!head_ref || !head_ref->next) return head_ref;
+        //code here
+        Node* ans = new Node(head_ref->data);
+        
+        // head_ref = head_ref->next;
+              
+        while(head_ref){
+            // cout<<head_ref->data<<"\n";
+            ans =  insertAtPlace(ans,head_ref->data);
+            // printHead(ans);
+            head_ref = head_ref->next;
+        }
+        // cout<<"\n";
+        
+        //remove head
+        ans = ans->next;
+        
+        return ans;
+    }
+    
+};
