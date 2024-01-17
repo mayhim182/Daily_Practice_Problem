@@ -1059,3 +1059,56 @@ class Solution {
         return res;
     }
 };
+
+Accepted
+
+class Solution {
+  public:
+    
+    void help(vector<pair<int,int> > visited,set<vector<int>> &ans,int index,vector<int> currPerm,int &n){
+        if(index==n && currPerm.size()==n){
+            ans.insert(currPerm);
+            return ;
+        }
+        
+        
+        if(index>n){
+            return ;
+        }
+        
+        if(index!=currPerm.size()) return ;
+        
+        for(int i=0;i<n;i++){
+            if(!visited[i].second){
+                visited[i].second = 1;
+                currPerm.push_back(visited[i].first);
+                help(visited,ans,index+1,currPerm,n);
+                currPerm.pop_back();
+                visited[i].second = 0;
+                help(visited,ans,index+1,currPerm,n);
+            }
+        }
+    }
+  
+    vector<vector<int>> uniquePerms(vector<int> &arr ,int n) {
+        // code here
+        set<vector<int> > ans;
+        vector<vector<int> > res;
+        vector<pair<int,int> > visited;
+        
+        
+        for(int i=0;i<n;i++){
+            visited.push_back({arr[i],0});
+        }
+        
+        sort(visited.begin(),visited.end());
+        help(visited,ans,0,{},n);
+      
+        
+        for(auto x:ans){
+            res.push_back(x);
+        }
+        
+        return res;
+    }
+};
