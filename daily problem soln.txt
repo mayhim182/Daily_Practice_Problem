@@ -1112,3 +1112,46 @@ class Solution {
         return res;
     }
 };
+
+class Solution{
+public:	
+
+    int isEqualInFREQTerms(vector<int> temp){
+        int chk = temp[0];
+        for(int i=0;i<temp.size();i++){
+            if(chk!=temp[i] && (chk!=0 && temp[i]!=0)) return 0;
+            chk = temp[i];
+        }
+        
+        set<int> st1;
+        for(auto x:temp) st1.insert(x);
+        
+        if(st1.size()>2) return 0;
+        
+        return 1;
+    }
+    
+	bool sameFreq(string s)
+	{
+	    // code here 
+	    unordered_map<char,int> mp;
+	    for(auto x:s){
+	        mp[x]++;
+	    }
+	    
+	    vector<int> store;
+	    for(auto x:mp) store.push_back(x.second);
+	    int n = store.size();
+	    
+	    if(isEqualInFREQTerms(store)) return 1;
+	    
+	    for(int i = 0;i<n;i++){
+	        store[i]--;
+	       // cout<<store[i]<<" ";
+	        if(isEqualInFREQTerms(store)) return 1;
+	        store[i]++;
+	    }
+	    
+	    return 0;
+	}
+};
