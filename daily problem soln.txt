@@ -1155,3 +1155,35 @@ public:
 	    return 0;
 	}
 };
+
+class Solution{
+public:	
+    int isEqual(int arr[]){
+         int flag = 0;int temp=0;
+        for(int i=0;i<26;i++){
+            if(arr[i]==0) continue;
+            if(temp==0){
+                temp=arr[i];
+            }
+            if(arr[i]!=temp) return 0;
+        }
+        
+        return 1;
+    }
+	bool sameFreq(string s)
+	{
+	    int freq[26] = {0};
+	    for(auto x:s) freq[x-'a']++;
+	    int n = s.length();
+	    
+	    if(isEqual(freq)) return 1;
+	    
+	    for(int i=0;i<n;i++){
+	        if(freq[s[i]-'a']==0) continue;
+	        freq[s[i]-'a']--;
+	        if(isEqual(freq)) return 1;
+	        freq[s[i]-'a']++;
+	    }
+	    
+	    return 0;
+ }
