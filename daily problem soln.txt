@@ -1187,3 +1187,43 @@ public:
 	    
 	    return 0;
  }
+
+Q. Validate an Ipv4 address
+        string clipLeadingZeroes(string eachIpvSegment){
+            string clippedString = "";
+            for(auto x:eachIpvSegment){
+                if(x=='0') continue;
+                clippedString+=x;
+            }
+            return (clippedString.length() == 0 && eachIpvSegment.length()>0) ? "0":clippedString;
+        }
+    
+        
+        int startHelping(string eachIpvSegment){
+           if(eachIpvSegment.length()==0) return 0;
+           if(eachIpvSegment.length()>3) return 0;
+           if(eachIpvSegment.length()>1 && eachIpvSegment[0]=='0') return 0;
+           for(int i=0;i<eachIpvSegment.length();i++){
+               if(eachIpvSegment[i]>='0' && eachIpvSegment[i]<='9') continue;
+               return 0;
+           }
+           string segmentClone = clipLeadingZeroes(eachIpvSegment);
+           int help = (stoi(segmentClone)<=255) ? 1 : 0;
+           return help;
+        }
+        
+        int isValid(string s) {
+            string eachIpvSegment = "";
+            int patience = 0;int countOfDots = 0;
+            for(int i=0;i<s.length();i++){
+                if(s[i]=='.' && countOfDots<3){
+                    patience += startHelping(eachIpvSegment);
+                    eachIpvSegment = "";
+                    countOfDots++;
+                    continue;
+                }
+                eachIpvSegment+=s[i];
+            }
+            patience+=startHelping(eachIpvSegment);
+            return patience == 4;
+        }
