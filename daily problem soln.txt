@@ -1227,3 +1227,28 @@ Q. Validate an Ipv4 address
             patience+=startHelping(eachIpvSegment);
             return patience == 4;
         }
+
+Q. Fractional Knapsack
+
+  static bool customCompare(Item a, Item b){
+        return (a.value/(double)a.weight) >= (b.value/(double)b.weight);
+    }
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        sort(arr,arr+n,customCompare);
+        double ans = 0;int index = 0;
+        while(W && index<n){
+            if(W>=arr[index].weight){
+                W-=arr[index].weight;
+                ans+=arr[index].value;
+                index++;
+            }
+            else{
+              ans+=(((double)arr[index].value*W)/(double)arr[index].weight);
+              W=0;
+            }
+        }
+        
+        return ans;
+    }
