@@ -1252,3 +1252,18 @@ Q. Fractional Knapsack
         
         return ans;
     }
+Q. Check if string is rotated by 2 places
+
+  bool isRotated(string str1, string str2)
+    {
+        //right rotate by 2
+        int n = str1.size();
+        string rCopystr1 = "";string lCopystr1(n,'\0');
+        for(int i=0;i<n;i++){
+            rCopystr1+=(str1[(i+2)%n]);
+            lCopystr1[(i+2)%n] = str1[i];
+        }
+        
+        if(rCopystr1==str2 || lCopystr1==str2) return true;
+        return false;
+    }
