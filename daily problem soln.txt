@@ -1267,3 +1267,92 @@ Q. Check if string is rotated by 2 places
         if(rCopystr1==str2 || lCopystr1==str2) return true;
         return false;
     }
+
+Q. Multiply two strings TLE
+
+  public:
+    //Initially cut the issue of leading zeroes
+    string trimString(string s1){
+        int l = 0;
+        while(l<s1.size()){
+            if(s1[l]!='0') break;
+            l++;
+        }
+        return s1.substr(l,s1.size());
+    }
+    //Try to add two strings here
+    string addTwoStrings(string s1, string s2){
+        string res = "";
+        int l = s1.length()-1;
+        int r = s2.length()-1;
+        int carry = 0;
+        while(l>=0 && r>=0){
+            int c = (s1[l--]-'0'+s2[r--]-'0'+carry);
+            res+=to_string(c%10);
+            carry = c/10;
+        }
+        
+        while(l>=0){
+            int c = (s1[l--]-'0'+carry);
+            res+=to_string(c%10);
+            carry = c/10;
+        }
+        
+        
+        while(r>=0){
+            int c = (s2[r--]-'0'+carry);
+            res+=to_string(c%10);
+            carry = c/10;
+        }
+        
+        if(carry)
+            res+=to_string(carry);
+            
+        reverse(res.begin(),res.end());    
+        return res;
+    }
+    
+    string multiplyAssist(string s1, char multiplyer){
+        int l = s1.length()-1;int carry = 0;string res = "";
+        while(l>=0){
+            int c = ((s1[l--]-'0')*(multiplyer-'0'))+carry;
+            carry = c/10;
+            res += to_string(c%10);
+        }
+        
+        if(carry) res += to_string(carry);
+        reverse(res.begin(),res.end());
+        return res;
+    }
+    
+    //main method
+    string multiplyStrings(string s1, string s2) {
+        
+    //   removeSigns
+        int a = 1;
+        if(s1[0]=='-'){
+            s1 = s1.substr(1,s1.length());
+            a*=-1;
+        }
+        
+        if(s2[0]=='-'){
+            s2 = s2.substr(1,s2.length());
+            a*=-1;
+        }
+       //Your code here
+       s1 = trimString(s1);
+       s2 = trimString(s2);
+       
+       vector<string> storage;int l = 0;
+       string ans = "";
+       for(int i=s2.size()-1;i>=0;i--){
+           string temp = multiplyAssist(s1,s2[i]);
+           for(int j=0;j<l;j++) temp+="0"; 
+           l++;
+           ans = addTwoStrings(ans,temp);
+       }
+       
+       string res = ((a == -1 && ans.length()>0) ? "-"+ans : ans); 
+       
+       return res.length()==0? "0":res;
+    }
