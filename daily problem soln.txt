@@ -1443,3 +1443,21 @@ Q. Recursively remove adjacent chars O(n*n) where n = length of str [TLE 256/358
       }
       return s;
     }
+
+[ACCEPTED]
+    string removeAdjacent(string s, string str){
+        for(int i=0;i<s.size();i++){
+            if(s[i]!=s[i-1] && s[i]!=s[i+1]){
+                str += s[i];
+            }
+        }
+        
+        if(s.size()==str.size()) return str;
+        
+        return removeAdjacent(str,"");
+    }
+
+    string rremove(string s){
+        string res = removeAdjacent(s,"");
+        return res;
+    }
