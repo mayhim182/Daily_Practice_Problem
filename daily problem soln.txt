@@ -1412,3 +1412,34 @@ Q. Non repeating char
        return ans;
     }
 
+Q. Recursively remove adjacent chars O(n*n) where n = length of str [TLE 256/358]
+
+    int containsAdjacentDuplicate(string s){
+        for(int i=0;i<s.length()-1;i++){
+            if(s[i]==s[i+1]) return 1;
+        }
+        
+        return 0;
+    }
+    
+    string helpToRemove(string s){
+        string resp = "";int flag = 0;
+        unordered_map<int,int> indices;
+        for(int i=0;i<s.length()-1;i++){
+            if(s[i]==s[i+1]){
+                indices[i]=1;
+                indices[i+1]=1;
+            }
+        }
+        for(int i = 0;i<s.length();i++){
+            if(indices.find(i)==indices.end()) resp+=s[i];
+        }
+        return resp;
+    }
+    
+    string rremove(string s){
+      while(containsAdjacentDuplicate(s) && s.length()>0){
+          s = helpToRemove(s);
+      }
+      return s;
+    }
