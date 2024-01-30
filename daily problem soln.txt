@@ -1616,3 +1616,44 @@ Optimised
 
             return LCSof3Help(A,B,C,n1-1,n2-1,n3-1,dp);
         }
+Q. Count number of substrings brute force
+  
+    bool uniqueDetection(int arr[],int k){
+        int cnt = 0;
+        for(int i=0;i<26;i++){
+            if(arr[i]) cnt++;
+        }
+        return cnt==k;
+    }
+    
+  
+    long long int substrCount (string s, int k) {
+    	//BRUTE FORCE
+    	int ans = 0;
+    	for(int i=0;i<s.length();i++){
+    	    string temp = "";
+    	    int freq[26]={0};
+    	    for(int j=i;j<s.length();j++){
+    	        freq[s[j]-'a']++;
+    	        if(uniqueDetection(freq,k)) ans++;
+    	    }
+    	}
+    	
+    	return ans;
+    }
+
+Q. second most repeated string
+   string secFrequent (string arr[], int n)
+    {
+        //code here.
+        unordered_map<string,int> mp;
+        for(int i=0;i<n;i++){
+            mp[arr[i]]++;
+        }
+        vector<pair<int,string>> ordinaryStorage;
+        for(auto x:mp){
+            ordinaryStorage.push_back({x.second,x.first});
+        }
+        sort(ordinaryStorage.begin(),ordinaryStorage.end());
+        return ordinaryStorage[ordinaryStorage.size()-2].second;
+    }
