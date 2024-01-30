@@ -1577,3 +1577,42 @@ brute force recursive TLE [11 cases]
             // l2 = trim(l2);
             return l2.size();
         }
+
+Optimised
+       int LCSof3Help(string A, string B,string C, int n1, int n2, int n3,vector<vector<vector<int> > > &dp){
+            if(n1<0 || n2<0 || n3<0){
+                return 0;
+            }
+            
+            if(dp[n1][n2][n3]!=-1) return dp[n1][n2][n3];
+            
+            if(A[n1]==B[n2] && B[n2]==C[n3]) return dp[n1][n2][n3] = 1+LCSof3Help(A,B,C,n1-1,n2-1,n3-1,dp);
+            
+            int one = LCSof3Help(A,B,C,n1-1,n2,n3,dp);
+            int two = LCSof3Help(A,B,C,n1,n2-1,n3,dp);
+            int three = LCSof3Help(A,B,C,n1,n2,n3-1,dp);
+            int four = LCSof3Help(A,B,C,n1-1,n2-1,n3,dp);
+            int five = LCSof3Help(A,B,C,n1-1,n2,n3-1,dp);
+            int six = LCSof3Help(A,B,C,n1,n2-1,n3-1,dp);
+            
+            vector<int> tempSort;
+            tempSort.push_back(one);
+            tempSort.push_back(two);
+            tempSort.push_back(three);
+            tempSort.push_back(four);
+            tempSort.push_back(five);
+            tempSort.push_back(six);
+            
+            sort(tempSort.begin(),tempSort.end());
+            
+            return dp[n1][n2][n3] = tempSort[tempSort.size()-1];
+        
+        }
+        
+        int LCSof3 (string A, string B, string C, int n1, int n2, int n3)
+        {
+    vector<vector<vector<int> > > dp(
+        25, vector<vector<int> >(25, vector<int>(25,-1)));
+
+            return LCSof3Help(A,B,C,n1-1,n2-1,n3-1,dp);
+        }
