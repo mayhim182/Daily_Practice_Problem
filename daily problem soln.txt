@@ -1500,3 +1500,80 @@ Q. Minimum indexed character
         
         return -1;
     }
+Q. Count Digit Groupings [EDITORIAL]
+	vector<vector<int> > dp;
+	
+	int countGroups(int position, int previous_sum, int length, string num){
+	    if(position == length) return 1;
+	    
+	    if(dp[position][previous_sum]!=-1) return dp[position][previous_sum];
+	    
+	    dp[position][previous_sum] = 0;
+	    int res = 0;
+	    int sum = 0;
+	    
+	    for(int i = position; i<length; i++){
+	        sum+=(num[i]-'0');
+	        if(sum>=previous_sum) res+=countGroups(i+1,sum,length,num);
+	    }
+	    
+	    dp[position][previous_sum] = res;
+	    
+	    return res;
+	}
+	
+	int TotalCount(string str){
+	    // Code here
+	    int n = str.size();
+	    dp.assign(n,vector<int>(n*8+1,-1));
+	    return countGroups(0,0,n,str);
+	}
+
+LCS of three strings
+brute force recursive TLE [11 cases]
+      string dp[100][100];
+        
+        string LCSof2(string A, string B, int n1, int n2,string ans){
+            if(n1<0 || n2<0) return ans;
+            
+            // if(dp[n1][n2]!= "$") return dp[n1][n2];
+            
+            
+            if(A[n1]==B[n2]){
+                // cout<<ans<<'\n';
+                return dp[n1][n2] = LCSof2(A,B,n1-1,n2-1,ans+A[n1]);
+            } 
+            
+            string one = LCSof2(A,B,n1-1,n2,ans);
+            string two = LCSof2(A,B,n1,n2-1,ans);
+            
+            if(one.length()>two.length()) return dp[n1][n2] = one;
+            
+            return dp[n1][n2]=two;
+        }
+        
+        string trim(string a){
+            int l = 0;
+            string res = "";
+            while(a[l]==' ' && l<a.length()){
+                l++;
+            }
+            return a.substr(l,a.size());
+        }
+
+        int LCSof3 (string A, string B, string C, int n1, int n2, int n3)
+        {
+            // your code here
+            for(int i=0;i<100;i++){
+                for(int j=0;j<100;j++){
+                    dp[i][j] = "$";
+                }
+            }
+            
+            string l1 = LCSof2(A,B,n1-1,n2-1,"");
+            reverse(l1.begin(),l1.end());
+            // cout<<l1<<'\n';
+            string l2 = LCSof2(l1,C,l1.length()-1,n3-1,"");
+            // l2 = trim(l2);
+            return l2.size();
+        }
