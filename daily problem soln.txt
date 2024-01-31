@@ -1691,5 +1691,23 @@ Q. Reverse words in a string
         S.pop_back();
         
         return S;
-     
     } 
+
+Q. Longest distinct character string 
+int longestSubstrDistinctChars (string S)
+{
+    int l = 0;int r = 0;int n = S.length();
+    int ans = 0;
+    for(int i = 0;i<n;i++){
+        int freq[26] = {0};int len = 0;
+        for(int j=i;j<n;j++){ //the inner loop will run atmost 26 times as there are
+            freq[S[j]-'a']++; //maximum 26 distinct characters otherwise will repeat
+            if(freq[S[j]-'a']>1){
+                break;
+            }
+            len++;
+            ans = max(ans,len);
+        }
+    }
+    return ans;
+}
