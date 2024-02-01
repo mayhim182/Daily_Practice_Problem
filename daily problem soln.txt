@@ -1711,3 +1711,15 @@ int longestSubstrDistinctChars (string S)
     }
     return ans;
 }
+
+Q. Panagram checking
+   bool checkPangram (string s) {
+        // your code here
+        transform(s.begin(),s.end(),s.begin(),::toupper);
+        int freq[26]={0};
+        for(auto x:s){
+            if(x<='Z' && x>='A') freq[x-'A']++;
+        }
+        for(int i=0;i<26;i++) if(!freq[i]) return 0;
+        return 1;
+    }
