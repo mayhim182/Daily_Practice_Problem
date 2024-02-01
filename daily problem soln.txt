@@ -1723,3 +1723,24 @@ Q. Panagram checking
         for(int i=0;i<26;i++) if(!freq[i]) return 0;
         return 1;
     }
+    bool checkPangram (string s) {
+        int freqCap[26]={0};
+        int freqLow[26]={0};
+        for(auto x:s){
+            if(x<='Z' && x>='A'){
+                freqCap[x-'A']++;
+                freqLow[x-'A']++;
+            }
+            else if(x<='z' && x>='a'){
+                freqLow[x-'a']++;
+                freqCap[x-'a']++;
+            }
+        }
+        
+        for(int i=0;i<26;i++){
+            // cout<<freqCap[i]<<' '<<freqLow[i]<<'\n';
+            if(!freqCap[i] || !freqLow[i]) return 0;
+        }
+        
+        return 1;
+    }
