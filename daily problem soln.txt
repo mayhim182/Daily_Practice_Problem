@@ -1744,3 +1744,21 @@ Q. Panagram checking
         
         return 1;
     }
+
+  int getNthFromLast(Node *head, int n)
+    {
+        //Using two ponter
+        Node* ptr = head;
+        while(n-- && ptr){
+            ptr = ptr->next;
+        }
+    
+        if(n!=-1) return -1;
+        
+        while(ptr){
+            ptr = ptr->next;
+            head = head->next;
+        }
+        
+        return head->data;
+    }
