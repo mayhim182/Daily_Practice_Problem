@@ -1762,3 +1762,52 @@ Q. Panagram checking
         
         return head->data;
     }
+
+Q. Implement ATOI
+
+    string trimWhiteSpaces(string s){
+        int l = 0; string res = "";
+        while(s[l]==' '){
+            l++;
+        }
+        int r= s.length()-1;
+        while(s[r]==' '){
+            r--;
+        }
+        return s.substr(l,(r-l+1));
+    }
+    
+    int mainATOIlogic(string s){
+        int ans = 0;
+        for(int i=0;i<s.length();i++){
+            ans = ans*10+(s[i]-'0');
+        }
+        return ans;
+    }
+    
+    int detectALLInts(string s){
+        for(int i=0;i<s.length();i++){
+            if(s[i]>='0' && s[i]<='9') continue;
+            else return 0;
+        }
+        return 1;
+    }
+    
+    int atoi(string s) {
+        //Your code here
+        int flag = 1;
+        s = trimWhiteSpaces(s);
+        
+        
+        if(s[0]=='-'){
+            flag*=-1;
+            s=s.substr(1,s.length());
+        }
+        
+        if(!detectALLInts(s)) return -1;
+        
+        int res = mainATOIlogic(s);
+        
+        return flag*res;
+    }
+};
