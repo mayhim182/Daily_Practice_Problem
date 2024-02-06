@@ -1811,3 +1811,34 @@ Q. Implement ATOI
         return flag*res;
     }
 };
+
+
+    void removeLoop(Node* fast, Node* head){
+        Node* ptr = head;
+        while(head!=fast->next){
+            fast = fast->next;
+            head = head->next;
+        }
+        
+        fast->next = NULL;
+    }
+    
+    int detectLoop(Node *head){
+        if(!head || !head->next) return 0;
+        Node* slow = head;
+        Node* fast = head->next;
+        while(slow && fast && fast->next){
+            if(fast == slow) {
+                removeLoop(fast, head);
+                return 1;
+            }
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        return 0;
+    }
+    //Function to remove a loop in the linked list.
+    void removeLoop(Node* head)
+    {
+        detectLoop(head);
+    }
