@@ -1859,3 +1859,41 @@ Q. Detect Loop in LL(Linked List)
         
         return 0;
     }
+
+Q. Check if LinkedList is a palindrome
+   int palin(vector<int> &palinStore){
+        int l = 0; int r = palinStore.size()-1;
+        while(l<r){
+            if(palinStore[l++]!=palinStore[r--]) return 0;
+        }
+        return 1;
+    }
+   
+    bool isPalindrome(Node *head)
+    {
+       vector<int> palinStore;
+       while(head){
+           palinStore.push_back(head->data);
+           head = head->next;
+       }
+       return palin(palinStore);
+    }
+
+Q. Remove duplicate elements from sorted LL
+Node *removeDuplicates(Node *head)
+{
+ // your code goes here
+    Node *ptr = head;
+    if(!ptr || !ptr->next) return ptr;
+    
+    while(ptr->next){
+        if(ptr->data == ptr->next->data){
+            ptr->next = ptr->next->next;
+        }
+        else{
+            ptr = ptr->next;
+        }
+    }
+    
+    return head;
+}
