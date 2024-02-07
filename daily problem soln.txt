@@ -1897,3 +1897,45 @@ Node *removeDuplicates(Node *head)
     
     return head;
 }
+
+Q. Intersection point
+
+int intersectPoint(Node* head1, Node* head2)
+{
+    // BRUTE FORCE
+    while(head1){
+        Node* ptr = head2;
+        while(ptr){
+            if(ptr == head1) return ptr->data; //Assuming only 1 common node
+            ptr = ptr->next;
+        }
+        head1 = head1->next;
+    }
+    
+    return -1;
+}
+int interSection(Node* small, Node* large, int diff){
+    while(diff--){
+        large = large->next;
+    }
+    
+    while(small && large){
+        if(small == large) return large->data;
+        small = small->next;
+        large = large->next;
+    }
+    
+    return -1;
+}
+
+//Function to find intersection point in Y shaped Linked Lists.
+int intersectPoint(Node* head1, Node* head2)
+{
+    // BRUTE FORCE
+   int lenHead1 = calculateLength(head1);
+   int lenHead2 = calculateLength(head2);
+   
+   return lenHead1 > lenHead2 ? interSection(head2,head1,(lenHead1-lenHead2)) : interSection(head1,head2,(lenHead2-lenHead1));
+    
+}
+
