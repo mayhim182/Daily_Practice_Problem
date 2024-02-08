@@ -2018,3 +2018,27 @@ class Solution
         return trimLastZero(ans);
     }
 };
+
+Q. Leaf at same level
+ bool ok(struct Node *root, int level, int *leafLevel){
+        if(!root) return true;
+        
+        //Leaf node
+        if(!root->left && !root->right){
+            if(*leafLevel == 0){
+                *leafLevel = level;
+                return true;
+            }
+            
+            return (*leafLevel==level);
+        }
+        
+        return ok(root->left,level+1,leafLevel)&&ok(root->right,level+1,leafLevel);
+    }
+    /*You are required to complete this method*/
+    bool check(Node *root)
+    {
+        //Your code here
+        int level = 0; int leafLevel = 0;
+        return ok(root,level,&leafLevel);
+    }
