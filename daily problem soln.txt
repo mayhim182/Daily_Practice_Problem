@@ -1939,3 +1939,82 @@ int intersectPoint(Node* head1, Node* head2)
     
 }
 
+Q. Add two numbers represented by Linked Lists
+
+
+class Solution
+{
+    public:
+    
+    Node* insertAtHead(Node* currentHead,int data){
+        Node* newHead = new Node(data);
+        newHead->next = currentHead;
+        currentHead = newHead;
+        return currentHead;
+    }
+    
+    Node* reverseLL(Node* head){
+        if(!head || !head->next) return head;
+        Node* prev = NULL;
+        Node* curr = head;
+        Node* forw = head->next;
+        while(forw){
+            curr->next = prev;
+            prev = curr;
+            curr = forw;
+            forw = forw->next;
+        }
+        curr->next = prev;
+        return curr;
+    }
+    
+    void print(Node* head){
+        while(head){
+            cout<<head->data<<' ';
+            head = head->next;
+        }
+    }
+    
+    Node* trimLastZero(Node* head){
+        if(!head || !head->next) return NULL;
+        Node* ptr = head;
+        while(head->next->next){
+            head = head->next;
+        }
+        head->next = head->next->next;
+        return ptr;
+    }
+    //Function to add two numbers represented by linked list.
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        first = reverseLL(first);
+        second = reverseLL(second);
+        Node* ans = new Node(0);
+        int carry = 0;
+        while(first && second){
+            int data = (first->data+second->data+carry)%10;
+            carry = (first->data+second->data+carry)/10;
+            ans = insertAtHead(ans,data);
+            first = first->next;
+            second = second->next;
+        }
+        
+        while(first){
+            int data = (first->data+carry)%10;
+            carry = (first->data+carry)/10;
+            ans = insertAtHead(ans,data);
+            first = first->next;
+        }
+        
+        while(second){
+            int data = (second->data+carry)%10;
+            carry = (second->data+carry)/10;
+            ans = insertAtHead(ans,data);
+            second = second->next;
+        }
+        
+        if(carry) ans = insertAtHead(ans,carry);
+        
+        return trimLastZero(ans);
+    }
+};
