@@ -2133,3 +2133,113 @@ void sort(Node **head)
     }
     *head = ans;
 }
+
+Q. SORTED ALTERNATIVELY WORKING
+
+void printt(Node* ptr){
+    Node* tobePrinted = ptr;
+    while(tobePrinted){
+        cout<<tobePrinted->data<<' ';
+        tobePrinted = tobePrinted->next;
+    }
+    cout<<'\n';
+}
+
+Node* insertATHEAD(Node* head, int data){
+    if(!head) return new Node(data);
+    Node* temp = new Node(data);
+    temp->next = head;
+    head = temp;
+    return head;
+}
+
+Node* assignANSToHEAD(Node* head, Node* ans){
+    Node* ptr = head;
+    while(ans){
+        head = ans;
+        ans = ans->next;
+        head = head->next;
+    }
+    return head;
+}
+
+Node* insertAtTail(Node* head, int data){
+    if(!head) return new Node(data);
+    Node* res = head;
+    while(head->next){
+        head = head->next;
+    }
+    head->next = new Node(data);
+    head = head->next;
+    return res;
+}
+
+void sort(Node **head)
+{
+    Node* ascending = NULL;
+    Node* descending = NULL;
+    Node* ptr = *head;
+    if(!ptr || !ptr->next) return ;
+    
+    int l = 0;
+    while(ptr){
+        if(l%2==0){
+            ascending = insertAtTail(ascending,ptr->data);
+        }
+        else{
+            descending = insertATHEAD(descending,ptr->data);
+        }
+        ptr = ptr->next;
+        l++;
+    }
+    // printt(ascending);cout<<"ASC\n";
+    // printt(descending);cout<<"DSC\n";
+    Node* ans = new Node(0);
+    Node* res = ans;
+    while(ascending && descending){
+        if(ascending->data<descending->data){
+            if(!ans){
+                ans = new Node(ascending->data);
+            }else{
+                Node* temp = new Node(ascending->data);
+                ans->next = temp;
+                ans = ans->next;
+            }
+            ascending = ascending->next;
+        }
+        else{
+             if(!ans){
+                ans = new Node(descending->data);
+            }else{
+                Node* temp = new Node(descending->data);
+                ans->next = temp;
+                ans = ans->next;
+            }
+            descending = descending->next;
+        }
+    }
+    
+    while(descending){
+          if(!ans){
+                ans = new Node(descending->data);
+            }else{
+                Node* temp = new Node(descending->data);
+                ans->next = temp;
+                ans = ans->next;
+            }
+            descending = descending->next;
+    }
+    while(ascending){
+        if(!ans){
+                ans = new Node(ascending->data);
+            }else{
+                Node* temp = new Node(ascending->data);
+                ans->next = temp;
+                ans = ans->next;
+            }
+            ascending = ascending->next;
+    }
+    
+    *head = res->next;
+    //TRIM LEADING 0
+}
