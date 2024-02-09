@@ -2042,3 +2042,94 @@ Q. Leaf at same level
         int level = 0; int leafLevel = 0;
         return ok(root,level,&leafLevel);
     }
+
+Q. Non working sorted alternatively
+Node* reverseLL(Node* head){
+    if(!head || !head->next) return head;
+    Node* prev = NULL;
+    Node* curr = head;
+    Node* forw = head->next;
+    
+    while(forw){
+        curr->next = prev;
+        prev = curr;
+        curr = forw;
+        forw = forw->next;
+    }
+    curr->next = prev;
+    
+    return curr;
+    
+}
+
+void print(Node* head){
+    while(head){
+        cout<<head->data<<' ';
+        head = head->next;
+    }
+}
+
+int leng(Node *hea){
+    Node *temp = hea;
+    int len = 0;
+    while(hea){
+        hea = hea->next;
+        len++;
+    }
+    hea = temp;
+    return len;
+}
+
+Node* insertAtHead(Node* ptr,int data){
+    Node* temp = new Node(data);
+    if(!ptr) return temp;
+    temp->next = ptr;
+    ptr = temp;
+    return ptr;
+}
+
+void sort(Node **head)
+{
+   Node* ptr = *head;
+   
+   if(!ptr || !ptr->next) return ;
+   int l = 0;
+   if(ptr->data<ptr->next->data) l = 0;
+   else l = 1;
+   int cnt = 0;
+   while(ptr){
+       if(l%2!=0){
+        cnt++;
+        *head = insertAtHead(*head,ptr->data);   
+       }
+       ptr = ptr->next;
+       l++;
+   }
+   
+   Node* temp = *head;
+   while(cnt>1){
+       temp = temp->next;
+       cnt--;
+   }
+   
+   if(temp->next) //cutting the umbilical cord
+    {
+        Node* forw = temp->next;
+        temp->next = NULL;
+        temp = forw;
+    }
+    l = 0;
+    Node* ans = temp;
+    while(temp){
+       if(temp && temp->next && temp->next->next){
+           temp->next = temp->next->next;
+           temp = temp->next;
+       }
+       else{
+           //Probably reached last node
+           temp-> next = *head;
+           break;
+       }
+    }
+    *head = ans;
+}
