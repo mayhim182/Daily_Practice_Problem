@@ -2243,3 +2243,21 @@ void sort(Node **head)
     *head = res->next;
     //TRIM LEADING 0
 }
+
+Q. Delete a Node in singly LL
+Node* deleteNode(Node *head,int x)
+{
+    Node* ptr = head;
+    if(!head) return head;
+    if(x==1){
+        ptr = ptr->next;
+    }
+    while(x>2 && head){
+        head = head->next;
+        x--;
+    }
+    if(head && head->next){
+        head->next = head->next->next;
+    }
+    return ptr;
+}
