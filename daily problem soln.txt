@@ -2261,3 +2261,29 @@ Node* deleteNode(Node *head,int x)
     }
     return ptr;
 }
+
+Q. Racamans Sequence
+    vector<int> recamanSequence(int n){
+        //BRUTE FORCE
+        unordered_map<int,int> mp;
+        vector<int> ans;
+        int l = 0;
+        int a = 0;
+    
+        while(l<n){
+            int temp = a - l;
+            if(temp>0 && mp.find(temp)==mp.end()){
+                mp[temp]++;
+                ans.push_back(temp);
+            }
+            else{
+                temp = a+l;
+                mp[temp]++; //avoiding an extra if block by using space
+                ans.push_back(temp);
+            }
+            a = temp;
+            l++;
+        }
+        
+        return ans;
+    }
