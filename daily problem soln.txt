@@ -2287,3 +2287,21 @@ Q. Racamans Sequence
         
         return ans;
     }
+Q. Q.https://www.geeksforgeeks.org/problems/recursive-sequence1611/1
+    const long long mod = 1e9+7;
+    
+    long long sequence(int n){
+        // BRUTE FORCE
+        long long ans = 0;int multiplier = 1;
+        for(int i=1;i<=n;i++){
+          int temp=i;
+          long long tempSum = 1;
+          while(temp--){
+              tempSum = (tempSum*multiplier)%mod;
+              multiplier++;
+          }
+          ans = (ans%mod+tempSum%mod)%mod;
+        }
+        
+        return ans;
+    }
