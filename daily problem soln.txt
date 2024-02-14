@@ -2372,3 +2372,20 @@ public:
         return ans;
     }
 };
+
+From Editorial
+private:
+    unordered_map<Node*,Node*> copies;
+    
+public:
+    Node* cloneGraph(Node* node) {
+        if(!node) return node;
+        if(copies.find(node)==copies.end()){
+            copies[node] = new Node(node->val, {});
+            for(Node* neighbor:node->neighbors){
+                copies[node]->neighbors.push_back(cloneGraph(neighbor));
+            }
+        }   
+        return copies[node];
+    }
+};
