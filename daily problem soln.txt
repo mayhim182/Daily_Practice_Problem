@@ -2330,3 +2330,45 @@ Q. Q. https://www.geeksforgeeks.org/problems/linked-list-insertion-1587115620/0
        head->next = temp;
        return ptr;
     }
+
+Q. Failed attempt at clone an undirected graph
+
+class Solution {
+public:
+
+    void printArray(vector<Node*> arr){
+        for(auto c:arr){
+            cout<<c->val<<"->";
+        }
+        cout<<"\n";
+    }
+    
+    Node* cloneGraph(Node* node) {
+        unordered_map<Node*, int> visited;
+        Node* ans = new Node();
+        if(!node) return node;
+        queue<Node*> q;
+        q.push(node);
+        while(!q.empty()){
+            Node* temp = q.front();
+            ans->val=temp->val;
+            q.pop();
+            if(visited[temp]!=1){
+                cout<<temp->val<<"TEMP \n";
+                printArray(temp->neighbors);
+                visited[temp]=1;
+                Node* tempNode = new Node(temp->val);
+                int l = 0;
+                do{
+                    if(l<temp->neighbors.size()){
+                        temp = temp->neighbors[l];
+                        ans->neighbors.push_back(temp);
+                        q.push(temp);
+                    }
+                    l++;
+                }while(visited[temp]!=1 && l<temp->neighbors.size());
+            }
+        }
+        return ans;
+    }
+};
