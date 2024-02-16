@@ -2457,3 +2457,25 @@ Q. Failed approach for detecting a cycle
         vector<int> visited(V+1,0);
         return dfs(adj,V,visited,0,0);
     }
+
+Q. dfs again
+    void dfs(vector<int> &visited, vector<int> &ans, int currNode, vector<int> adj[]){
+        
+        
+        if(!visited[currNode]){
+            ans.push_back(currNode);
+            visited[currNode]= 1;
+        }
+        
+        for(auto x:adj[currNode]){
+            if(!visited[x]) dfs(visited, ans, x, adj);
+        }
+    }
+    
+    
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        vector<int> visited(V+1,0);
+        vector<int> ans;
+        dfs(visited,ans,0,adj);
+        return ans;
+    }
