@@ -2479,3 +2479,29 @@ Q. dfs again
         dfs(visited,ans,0,adj);
         return ans;
     }
+
+Q. Detect cycle in an undirected graph again
+    // Function to detect cycle in an undirected graph.
+    
+    int dfs(vector<int> &visited, int parent, int child, vector<int> adj[]){
+        visited[child] = 1;
+        for(auto c:adj[child]){
+            if(!visited[c])
+               {
+                   if(dfs(visited,child,c,adj)) return 1;
+               }
+            else if(c!=parent) return 1;     //Visited but not previous node
+        }
+        return 0;
+    }
+    
+    
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<int> visited(V+1,0);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                if(dfs(visited, -1, i, adj)) return true;
+            }
+        }
+        return false;
+    }
