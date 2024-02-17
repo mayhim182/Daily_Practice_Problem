@@ -2508,26 +2508,31 @@ Q. Detect cycle in an undirected graph again
 
 Q. Unoptimised furthest building
 
+class Solution {
+public:
+
     int helpMeReach(vector<int> &heights, int currIndex, int bricks, int ladders, vector<vector<vector<int> > > &dp){
         if(currIndex>=heights.size()-1) return 0; //Reached at destination
 
-        if(heights[currIndex]>=heights[currIndex+1])  return 1+helpMeReach(heights, currIndex+1, bricks, ladders);
+        if(heights[currIndex]>=heights[currIndex+1])  return dp[currIndex][bricks][ladders] = 1+helpMeReach(heights, currIndex+1, bricks, ladders,dp);
+
+        if(bricks>=0 && ladders>=0 && dp[currIndex][bricks][ladders]!=-1) return dp[currIndex][bricks][ladders]; 
 
         int heightDifference = heights[currIndex+1] - heights[currIndex];
 
         if(heightDifference <= bricks && ladders>0)
-            return 1+max(helpMeReach(heights, currIndex+1, bricks-heightDifference, ladders),
-                    helpMeReach(heights, currIndex+1, bricks, ladders-1));
-        if(ladders>0) return 1+helpMeReach(heights, currIndex+1, bricks, ladders-1);
-        if(heightDifference <= bricks) return 1+helpMeReach(heights, currIndex+1, bricks-heightDifference, ladders);
+            return dp[currIndex][bricks][ladders] = 1+max(helpMeReach(heights, currIndex+1, bricks-heightDifference, ladders,dp),
+                    helpMeReach(heights, currIndex+1, bricks, ladders-1,dp));
+        if(ladders>0) return 1+helpMeReach(heights, currIndex+1, bricks, ladders-1,dp);
+        if(heightDifference <= bricks) return 1+helpMeReach(heights, currIndex+1, bricks-heightDifference, ladders,dp);
         return 0;
     }
     
     int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
         int n = heights.size();
         vector<vector<vector<int> > > dp(
-        n+5, vector<vector<int> >(bricks+5, vector<int>(ladders+5,0)));
-        int ans = helpMeReach(heights, 0, bricks, ladders);
+        n+5, vector<vector<int> >(bricks+2, vector<int>(ladders+5,-1)));
+        int ans = helpMeReach(heights, 0, bricks, ladders,dp);
         
         return ans;
     }
