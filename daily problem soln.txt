@@ -2531,3 +2531,28 @@ Q. Unoptimised furthest building
         
         return ans;
     }
+
+Q. Greedy [62/78]
+
+class Solution {
+public:
+    int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
+       int ans = 0;int n = heights.size();
+       for(int i=0;i<n-1;i++){
+           if(heights[i]>=heights[i+1]){
+               ans++;
+           }
+           else if((heights[i+1]-heights[i])<=bricks && bricks>0){
+               bricks -= (heights[i+1]-heights[i]);
+               ans++;
+           }
+           else if(ladders>0){
+               ladders-=1;
+               ans++;
+           }else{
+               return ans;
+           }
+       }
+       return ans;
+    }
+};
