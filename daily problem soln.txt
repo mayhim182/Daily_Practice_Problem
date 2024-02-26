@@ -2586,3 +2586,27 @@ https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1?page=1&c
         
         return ans;
     }
+
+
+//power set failing for repeat characters
+	    void help(string temp, string &s, int index,vector<string> &ans){
+	        if(index>=s.size()) return ;
+	        if(temp.size()>0)
+	            ans.push_back(temp);
+	        
+	        temp.push_back(s[index]);
+	        help(temp,s,index+1,ans);
+	        temp.pop_back();
+	        help(temp,s,index+1,ans);
+	    }
+	    
+		vector<string> AllPossibleStrings(string s){
+		    vector<string> ans; // use set but it will not guarantee for 
+		                        // strings having repeat characters
+		    vector<string> result;
+		    s+="d";
+		    help("",s,0,ans);
+		    sort(ans.begin(),ans.end());
+		    for(auto x:ans) result.push_back(x);
+		    return result;
+		}
