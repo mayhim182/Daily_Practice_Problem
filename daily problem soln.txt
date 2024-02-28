@@ -2630,3 +2630,24 @@ int* game_with_number(int arr[], int n)
         arr[i] = arr[i] | arr[i+1];
     return arr;    
 }
+
+Q. Check if a number is divisible by 8
+class Solution{
+    public:
+    int DivisibleByEight(string s){
+        //Handling the base case
+        if(s.length()==1) return s[0]=='8' ? 1:-1;
+        
+        if(s.length()==2){
+            string divByFour = s.substr(s.length()-2);
+            int divByFourInt = stoi(divByFour);
+            if(divByFourInt%8==0) return 1;
+            return -1;     
+        }
+        string divByEight = s.substr(s.length()-3);
+        int divByEightInt = stoi(divByEight);
+        if(divByEightInt%8==0) return 1;
+        return -1;
+       
+    }
+};
