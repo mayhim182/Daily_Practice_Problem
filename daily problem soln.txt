@@ -2651,3 +2651,27 @@ class Solution{
        
     }
 };
+
+Q. Next larger element optimised
+ public:
+    //Function to find the next greater element for each element of the array.
+    vector<long long> nextLargerElement(vector<long long> arr, int n){
+        // Your code here
+        stack<long long> s;
+        vector<long long> res(n);
+        
+        //traversing the array from last element in backward direction.
+        for(int i = n-1; i>=0; i--){
+            while(!s.empty() and s.top() <= arr[i]){
+                s.pop();
+            }
+              
+            if(s.empty()) res[i] = -1;
+            else res[i] = s.top();
+                
+            //pushing the current array element into the stack
+            s.push(arr[i]);
+        }
+        
+        return res;
+    }
