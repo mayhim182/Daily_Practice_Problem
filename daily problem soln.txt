@@ -2700,3 +2700,19 @@ Q. Second Largest
 	    itr++;
 	    return *itr;
 	}
+
+Q. Two repeated elements
+class Solution {
+  public:
+    //Function to find two repeated elements.
+    vector<int> twoRepeated (int arr[], int n) {
+       //Brute force
+       vector<int> ans;
+       unordered_map<int, int> mp;
+       for(int i=0;i<n+2;i++) {
+           mp[arr[i]]++;
+           if(mp[arr[i]]>1) ans.push_back(arr[i]);
+       }
+       return ans;
+    }
+};
