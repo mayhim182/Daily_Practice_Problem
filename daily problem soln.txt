@@ -2716,3 +2716,94 @@ class Solution {
        return ans;
     }
 };
+
+Q. Freedom Trail [GREEDY 55/303]
+
+class Solution {
+public:
+    void rotate_ring(string &ring, int index) {
+        int temp_index = index; int n = ring.length();
+        string rotated_string = "";
+        do{
+            rotated_string+=ring[temp_index];
+            temp_index = (temp_index+1)%n;
+        }while(temp_index!=index);
+        ring = rotated_string;
+    }
+
+    string rotate_ring(string &ring, int index) {
+        int temp_index = index; int n = ring.length();
+        string rotated_string = "";
+        do{
+            rotated_string+=ring[temp_index];
+            temp_index = (temp_index+1)%n;
+        }while(temp_index!=index);
+        return rotated_string;
+    }
+
+    int find_from_start(string ring, char key) {
+        for(int i = 0;i<ring.length();i++) {
+            if(ring[i] == key) return i;
+        }
+        return -1;
+    }
+
+    int find_from_end(string ring, char key) {
+        for(int i = ring.length()-1;i>=0;i--) {
+            if(ring[i] == key) return i;
+        }
+        return -1;
+    }
+
+    int find_number_of_steps(string ring, string key) {
+         int ans = 0;int n = ring.length();
+        for(int i = 0; i<key.length(); i++) {
+             int ma = 0;int local_index = 0;
+            if(find_from_start(ring, key[i])>(n-find_from_end(ring, key[i]))) {
+                ma = n-find_from_end(ring, key[i]);
+                local_index = find_from_end(ring, key[i]);
+                rotate_ring(ring,local_index);
+            } else {
+                ma = find_from_start(ring, key[i]);
+                local_index = find_from_start(ring, key[i]);
+                rotate_ring(ring, local_index);
+            }
+            ans+=(ma+1);
+        }
+        return ans;
+    }
+    
+    int findRotateSteps(string ring, string key) {
+       return find_number_of_steps(ring, key);
+    }
+};
+
+
+Qn. https://www.geeksforgeeks.org/priority-queue-of-pairs-in-c-ordered-by-first/
+
+    vector <int> calculateSpan(int price[], int n)
+    {
+       // Your code here
+       vector<int> ans;
+       vector<int> store_of_value_with_index_ans;
+       for(int i=0;i<n;i++){
+           int temp = 1;
+           for(int j=i-1;j>=0;){
+               if(price[i]>=price[j]){
+                   if(store_of_value_with_index_ans[j]>1){
+                       temp+=(store_of_value_with_index_ans[j]);
+                        j = (j-store_of_value_with_index_ans[j]);
+                   }
+                   else {
+                       j--;
+                       temp++;
+                   }
+               } else{
+                 break;
+               }
+           }
+           store_of_value_with_index_ans.push_back(temp);  
+           ans.push_back(temp);
+       }
+       return ans;
+    }
